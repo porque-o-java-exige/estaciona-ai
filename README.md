@@ -56,8 +56,8 @@ estaciona-ai/ (Repositório Principal)
 └── estaciona-ai-back/         # [Submodule] REST API em Java com Spring Boot e Maven
 ```
 
-* **[Repositório Front-end (estaciona-ai-front)](https://www.google.com/search?q=https%3A%2F%2Fgithub.com%2Fporque-o-java-exige%2Festaciona-ai-front):** Interface SPA desenvolvida em Angular, TypeScript, SCSS com arquitetura Atomic Design e testes em Cypress.
-* **[Repositório Back-end (estaciona-ai-back)](https://www.google.com/search?q=https%3A%2F%2Fgithub.com%2Fporque-o-java-exige%2Festaciona-ai-back):** API RESTful desenvolvida em Java 17+ com Spring Boot, Maven, validações de negócio e persistência de dados.
+* **[Repositório Front-end (estaciona-ai-front)](https://github.com/porque-o-java-exige/estaciona-ai-front):** Interface SPA desenvolvida em Angular, TypeScript, SCSS com arquitetura Atomic Design e testes em Cypress.
+* **[Repositório Back-end (estaciona-ai-back)](https://github.com/porque-o-java-exige/estaciona-ai-back):** API RESTful desenvolvida em Java 17+ com Spring Boot, Maven, validações de negócio e persistência de dados.
 
 ---
 
