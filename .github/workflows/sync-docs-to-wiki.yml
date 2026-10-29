@@ -1,0 +1,61 @@
+name: Docs & Wiki Auto-Sync (Estaciona Aí)
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.github/workflows/sync-docs-to-wiki.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-sync-wiki:
+    name: Validar Documentação e Publicar na GitHub Wiki
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout do Repositório Principal (estaciona-ai)
+        uses: actions/checkout@v4
+
+      - name: 2. Validar Existência dos Artefatos Obrigatórios do TCC
+        run: |
+          echo "🔍 Verificando integridade semântica da pasta /docs..."
+          REQUIRED_FILES=(
+            "docs/01-visao-e-mvp.md"
+            "docs/02-requisitos.md"
+            "docs/03-roteiro-e-evidencias-testes.md"
+            "docs/04-testes-cypress.md"
+            "docs/05-arquitetura-e-modelagem.md"
+            "docs/06-gestao-agil-sprints.md"
+            "docs/CONTRIBUTING.md"
+            "docs/wiki/Home.md"
+            "docs/wiki/_Sidebar.md"
+            "docs/wiki/_Footer.md"
+          )
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Erro: Arquivo obrigatório ausente: $file"
+              exit 1
+            fi
+            echo "✅ Encontrado: $file"
+          done
+
+      - name: 3. Preparar Diretório de Staging da Wiki
+        run: |
+          mkdir -p wiki-staging
+          cp docs/*.md wiki-staging/
+          cp docs/wiki/Home.md wiki-staging/Home.md
+          cp docs/wiki/_Sidebar.md wiki-staging/_Sidebar.md
+          cp docs/wiki/_Footer.md wiki-staging/_Footer.md
+
+      - name: 4. Sincronizar Automaticamente com a Aba GitHub Wiki
+        uses: Andrew-Chen-Wang/github-wiki-action@v4
+        with:
+          path: wiki-staging/
+          commit-message: "docs(wiki): sincronização automática via GitHub Actions [skip ci]"
